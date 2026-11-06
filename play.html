@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#241018">
+<title>כמה אתם מכירים את רלו?</title>
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/play.css">
+</head>
+<body>
+<main id="app">
+
+  <section id="s-loading" class="scr on"><div class="center"><div class="spinner"></div></div></section>
+
+  <section id="s-join" class="scr">
+    <div class="brand"><span class="k">חוגגים 70</span><h1><span class="gold-text">כמה אתם מכירים</span> את רלו?</h1></div>
+    <label class="lbl" for="name">איך קוראים לך?</label>
+    <input id="name" maxlength="14" autocomplete="off" placeholder="השם שלך" enterkeyhint="done">
+    <div class="lbl">בחרו דמות</div>
+    <div class="avatars" id="avatars"></div>
+    <button class="big" id="join">יאללה, נכנסים! 🎉</button>
+    <div class="err" id="joinerr"></div>
+  </section>
+
+  <section id="s-wait" class="scr">
+    <div class="center">
+      <div class="me-av" id="w-av"></div>
+      <div class="me-name" id="w-name"></div>
+      <h2>נכנסתם למשחק!</h2>
+      <p>תסתכלו על הטלוויזיה,<br>עוד רגע מתחילים</p>
+      <button class="link" id="leave">לא אני? החלפת שם</button>
+    </div>
+  </section>
+
+  <section id="s-read" class="scr">
+    <div class="center">
+      <div class="qn" id="r-n"></div>
+      <h2 class="rq" id="r-q"></h2>
+      <div class="bar"><i id="r-bar"></i></div>
+      <p>מתכוננים…</p>
+    </div>
+  </section>
+
+  <section id="s-answer" class="scr">
+    <div class="ahead"><span id="a-n"></span><span class="num" id="a-secs"></span></div>
+    <div class="aq" id="a-q"></div>
+    <div class="btns" id="btns"></div>
+  </section>
+
+  <section id="s-locked" class="scr">
+    <div class="center">
+      <div class="lock">🔒</div>
+      <h2>התשובה נקלטה!</h2>
+      <div class="picked" id="l-pick"></div>
+      <p>מחכים לכולם…</p>
+    </div>
+  </section>
+
+  <section id="s-result" class="scr">
+    <div class="center">
+      <div class="res-ico" id="res-ico"></div>
+      <h2 class="res-title" id="res-title"></h2>
+      <div class="res-pts num" id="res-pts"></div>
+      <div class="res-extra" id="res-extra"></div>
+      <div class="rank-card"><div>המקום שלך</div><b class="num" id="res-rank"></b><span id="res-of"></span></div>
+      <div class="res-score">סה״כ <b class="num" id="res-score"></b> נקודות</div>
+    </div>
+  </section>
+
+  <section id="s-final" class="scr">
+    <div class="center">
+      <div class="final-medal" id="f-medal"></div>
+      <h2 id="f-title"></h2>
+      <div class="res-score">סיימתם עם <b class="num" id="f-score"></b> נקודות</div>
+      <div class="cake">🎂</div>
+      <h2 class="gold-text bday">מזל טוב לרלו!</h2>
+      <p>עד 120 באהבה 💛</p>
+    </div>
+  </section>
+
+  <div class="overlay hidden" id="paused"><div>⏸<br>הפסקה קצרה</div></div>
+  <div class="offline hidden" id="offline">מתחברים מחדש…</div>
+</main>
+<canvas class="confetti" id="confetti"></canvas>
+<script type="module" src="js/play.js"></script>
+</body>
+</html>

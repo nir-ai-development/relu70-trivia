@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>כמה אתם מכירים את רלו? · מסך הטלוויזיה</title>
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/host.css">
+</head>
+<body class="grain">
+<div id="stage">
+
+  <!-- LOBBY -->
+  <section id="lobby" class="screen">
+    <div class="collage" id="collage"></div>
+    <div class="lobby-main">
+      <div class="kicker">חוגגים 70 · ד"ר רלו אברהם</div>
+      <h1 class="title"><span class="gold-text">כמה אתם מכירים</span><br>את רלו?</h1>
+      <div class="nick" id="nick">חריפאפא</div>
+      <div class="lobby-count"><b class="num" id="pcount">0</b> שחקנים במשחק</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">סרקו עם הטלפון</div>
+      <img id="qr" src="media/qr.svg" alt="QR">
+      <div class="qr-url" id="qrurl"></div>
+      <div class="qr-label small">הכניסו שם ובחרו דמות</div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="hint">לחצו <kbd>רווח</kbd> כדי להתחיל</div>
+  </section>
+
+  <!-- QUESTION -->
+  <section id="question" class="screen">
+    <div class="qbg" id="qbg"></div>
+    <header class="qhead">
+      <span class="era" id="era"></span>
+      <span class="qnum num" id="qnum"></span>
+      <span class="double hidden" id="double">✨ שאלת הזהב · ניקוד כפול</span>
+    </header>
+    <h2 class="qtext" id="qtext"></h2>
+    <div class="timer">
+      <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="ring" id="ring" cx="60" cy="60" r="52"/></svg>
+      <div class="secs num" id="secs"></div>
+    </div>
+    <div class="answered"><b class="num" id="acount">0</b><span id="atotal"></span><div class="who" id="who"></div></div>
+    <div class="ready" id="ready"><div class="ready-bar"><i id="readybar"></i></div><span>מתכוננים…</span></div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <!-- REVEAL -->
+  <section id="reveal" class="screen">
+    <div class="frame"><video id="rvideo" muted playsinline preload="auto"></video></div>
+    <aside class="rside">
+      <div class="rlabel">התשובה הנכונה</div>
+      <div class="ranswer" id="ranswer"></div>
+      <div class="rfact" id="rfact"></div>
+      <div class="dist" id="dist"></div>
+    </aside>
+    <div class="fast" id="fast"></div>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section id="board" class="screen">
+    <header class="bhead">
+      <h2 class="gold-text">טבלת המשפחה</h2>
+      <span id="bsub"></span>
+    </header>
+    <div class="blist" id="blist"></div>
+  </section>
+
+  <!-- PODIUM -->
+  <section id="podium" class="screen">
+    <h2 class="ptitle gold-text">אלופי רלו!</h2>
+    <div class="pods" id="pods"></div>
+    <div class="prest" id="prest"></div>
+  </section>
+
+  <!-- FINALE -->
+  <section id="finale" class="screen">
+    <div class="fphotos" id="fphotos"></div>
+    <div class="fcontent">
+      <div class="f70 gold-text num">70</div>
+      <div class="fmazal">מזל טוב, רלו!</div>
+      <div class="fnicks">חריפאפא · שמנצ'יק · פטצ'ו · פלפיפו</div>
+      <div class="flove">באהבה גדולה, מאלין, הילדים, הנכדים (וגם קמי וריילי)</div>
+    </div>
+  </section>
+
+  <div class="paused hidden" id="paused"><div>⏸ הפסקה קצרה</div></div>
+  <div class="local-badge hidden" id="localbadge">מצב בדיקה מקומי</div>
+</div>
+
+<div class="controls" id="controls">
+  <button data-act="next" title="הבא (רווח)">הבא ⏭</button>
+  <button data-act="pause" title="השהיה (P)">השהיה ⏸</button>
+  <button data-act="skip" title="דילוג על שאלה (S)">דלג על שאלה</button>
+  <button data-act="full" title="מסך מלא (F)">⛶</button>
+  <button data-act="sound" title="צליל (M)" id="soundbtn">🔊</button>
+  <button data-act="new" title="משחק חדש">משחק חדש</button>
+</div>
+<canvas class="confetti" id="confetti"></canvas>
+<script type="module" src="js/host.js"></script>
+</body>
+</html>

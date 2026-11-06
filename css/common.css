@@ -1,0 +1,48 @@
+@font-face { font-family: 'Frank'; src: url(../fonts/FrankRuhlLibre.ttf) format('truetype'); font-weight: 300 900; font-display: swap; }
+@font-face { font-family: 'Rubik'; src: url(../fonts/Rubik.ttf) format('truetype'); font-weight: 300 900; font-display: swap; }
+@font-face { font-family: 'Secular'; src: url(../fonts/SecularOne-Regular.ttf) format('truetype'); font-display: swap; }
+
+:root {
+  --ink: #170b10;
+  --night: #241018;
+  --wine: #5b1d2f;
+  --wine2: #7a2a3e;
+  --gold: #f0c87a;
+  --gold2: #c08f3e;
+  --cream: #fbf3e4;
+  --muted: #c9b5a6;
+  --good: #3fbf7f;
+  --bad: #e2574c;
+  --c0: #e4674f;  /* coral */
+  --c1: #2a9d96;  /* teal */
+  --c2: #d9a03a;  /* amber */
+  --c3: #7a5bc0;  /* plum */
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: radial-gradient(120% 90% at 70% 10%, #4a1828 0%, var(--night) 45%, var(--ink) 100%);
+  color: var(--cream);
+  font-family: 'Rubik', system-ui, sans-serif;
+  direction: rtl;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.hidden { display: none !important; }
+.gold-text {
+  background: linear-gradient(180deg, #fff1cf 0%, var(--gold) 45%, var(--gold2) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.num { font-family: 'Secular', 'Rubik', sans-serif; }
+.c0 { --c: var(--c0); } .c1 { --c: var(--c1); } .c2 { --c: var(--c2); } .c3 { --c: var(--c3); }
+
+/* film grain */
+.grain::after {
+  content: ''; position: fixed; inset: -50%; pointer-events: none; z-index: 50; opacity: .07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 1.2s steps(6) infinite;
+}
+@keyframes grain { 0%{transform:translate(0,0)} 25%{transform:translate(-3%,2%)} 50%{transform:translate(2%,-3%)} 75%{transform:translate(-2%,-1%)} 100%{transform:translate(0,0)} }
+
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 40; }

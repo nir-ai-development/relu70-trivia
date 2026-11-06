@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Trivia test bench</title>
+<style>
+  body { margin: 0; background: #111; color: #ddd; font: 13px system-ui; display: flex; gap: 10px; padding: 10px; flex-wrap: wrap; }
+  .tv { width: 960px; height: 540px; border: 2px solid #555; }
+  .phones { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+  .ph { width: 300px; height: 620px; border: 2px solid #555; border-radius: 18px; overflow: hidden; }
+  .ph iframe { width: 375px; height: 775px; border: 0; transform: scale(.8); transform-origin: 0 0; }
+  #log { width: 600px; height: 540px; overflow: auto; background: #000; padding: 8px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<iframe class="tv" id="tv"></iframe>
+<div id="log"></div>
+<div class="phones" id="phones"></div>
+<script type="module">
+// Local test bench: ?phones=4&bots=16  (TV + real phone pages + headless bots answering at random)
+import { connect } from './js/net.js';
+const p = new URLSearchParams(location.search);
+const nPhones = +(p.get('phones') ?? 4), nBots = +(p.get('bots') ?? 0);
+// ?tv=0: the TV runs in its own tab (open index.html?local&new first)
+const withTv = p.get('tv') !== '0';
+for (let i = 0; i < 12; i++) localStorage.removeItem('trivia-me' + i);
+if (withTv) { localStorage.removeItem('trivia-mockdb'); document.getElementById('tv').src = 'index.html?local&new'; }
+else document.getElementById('tv').remove();
+const log = m => { document.getElementById('log').textContent += m + '\n'; };
+setTimeout(() => {
+  for (let i = 0; i < nPhones; i++) document.getElementById('phones').insertAdjacentHTML('beforeend', `<div class="ph"><iframe src="play.html?local&sim=${i}"></iframe></div>`);
+}, 800);
+
+const db = await connect();
+const NAMES = ['סבתא אלין', 'קארין', 'ארז', 'עידן', 'ליאת', 'טל', 'נועם', 'אמרי', 'אדם', 'אנה', 'ארי', 'גיא', 'איתי', 'דוד משה', 'רונית', 'יוסי', 'מיכל', 'אבי', 'שירה', 'בני'];
+const EMO = ['👵', '🦊', '🐼', '🦁', '🦄', '🩺', '🐶', '⚽', '🎹', '🐸', '🦖', '👑', '🐬', '👴', '🌻', '😎', '🐱', '🐵', '🦋', '🍕'];
+setTimeout(async () => {
+  const gid = await db.get('current/game');
+  log('game ' + gid);
+  for (let i = 0; i < nBots; i++) {
+    const id = 'bot' + i, skill = .3 + Math.random() * .6;
+    await db.set(`games/${gid}/players/${id}`, { name: NAMES[i % NAMES.length], avatar: EMO[i % EMO.length], score: 0, joinedAt: db.now() + i, online: true });
+    let done = -1;
+    db.watch(`games/${gid}/state`, s => {
+      if (!s || s.phase !== 'question' || done === s.q) return;
+      done = s.q;
+      const delay = s.openAt - db.now() + 1500 + Math.random() * 12000;
+      setTimeout(async () => {
+        const { QUESTIONS } = await import('./js/questions.js');
+        const q = QUESTIONS[s.q];
+        const c = Math.random() < skill ? q.a : Math.floor(Math.random() * 4);
+        try { await db.set(`games/${gid}/answers/${s.q}/${id}`, { c, t: db.now() }); } catch (e) { log(id + ' ' + e.message); }
+      }, delay);
+    });
+  }
+  log(nBots + ' bots joined');
+}, 1500);
+window.__db = db;
+</script>
+</body>
+</html>
