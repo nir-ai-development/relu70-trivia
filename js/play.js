@@ -133,7 +133,7 @@ function render() {
     $('res-extra').innerHTML = ok
       ? (player.bonus ? `🔥 ${player.streak} ברצף! (+${player.bonus} בונוס)` : '')
       : `התשובה: <b>${esc(q.opts[q.a])}</b>`;
-    const mv = (player.prevRank || player.rank) - player.rank;
+    const mv = state.q > 0 ? (player.prevRank || player.rank) - player.rank : 0;
     $('res-rank').textContent = player.rank || '–';
     $('res-of').textContent = `מתוך ${state.total || ''}${mv > 0 ? ` · ▲ עלית ${mv}` : ''}`;
     $('res-score').textContent = player.score || 0;
